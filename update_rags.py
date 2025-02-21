@@ -3,15 +3,13 @@ import store_knowlegebase.storing_data_ts as kts
 import store_knowlegebase.storing_data_qd as kqd
 
 
-def setting_knowledgebase_timescale(simulate_text):    
-    kts.drop_tb()
+def setting_knowledgebase_timescale(simulate_text):       
     kts.create_tb()
     kts.insert_documents(simulate_text)
     kts.select_documents()
 
 
-def setting_knowledgebase_qdrant(simulate_text):
-    kqd.delete_a_collection("qd_collection")
+def setting_knowledgebase_qdrant(simulate_text):    
     kqd.store_data_to_qdrant(simulate_text)    
 
 

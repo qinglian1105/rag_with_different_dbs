@@ -2,9 +2,7 @@ from initialize.sharing import INIT_JSON, get_variables, get_embedding
 from psycopg2.extras import execute_values
 import psycopg2
 import requests
-import json
 import time
-import os
 
 
 def connect_db():
@@ -14,22 +12,6 @@ def connect_db():
         return conn
     except Exception as e:
         print(e)
-
-
-def drop_tb():           
-    try:
-        table_name = get_variables(INIT_JSON)["ts_table_name"]               
-        conn = connect_db()
-        cur = conn.cursor()        
-        sql_str = f"DROP TABLE {table_name};"
-        cur.execute(sql_str)
-        conn.commit()
-        print(f"---> {sql_str}")
-    except Exception as e:
-        print(e)
-    finally:
-        cur.close()
-        conn.close()
 
 
 def create_tb():

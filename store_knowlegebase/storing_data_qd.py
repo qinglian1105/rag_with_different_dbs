@@ -1,7 +1,6 @@
 from initialize.sharing import INIT_JSON, get_variables, get_embedding
 import requests
 import json
-import os
 
 
 def list_all_collections(): 
@@ -22,16 +21,6 @@ def create_a_collection(collection_name):
         print(f"Create collection - {collection_name}")        
     else:
         print(response) 
-
-
-def delete_a_collection(collection_name): 
-    qdrant_url = get_variables(INIT_JSON)["qdrant_url"]   
-    url = f"{qdrant_url}/collections/{collection_name}"
-    response = requests.delete(url)
-    if response.status_code == 200:
-        print(f"Delete collection - {collection_name}")        
-    else:
-        print(response)  
 
 
 def upsert_points(collection_name, points_list): 
@@ -56,5 +45,4 @@ def store_data_to_qdrant(simulate_text):
             "payload": {"title": example["title"], "content": example["content"]},
             "vector": get_embedding(example["content"], embedding_model),
         }
-        upsert_points(collection_name, [dic])
-          
+        upsert_points(collection_name, [dic])          

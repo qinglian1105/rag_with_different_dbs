@@ -1,7 +1,7 @@
 # **rag_with_different_dbs**
 
 
-## **Separately creating local RAG Apps with different databases.**
+## **Separately creating local RAG Apps with different databases**
 
 ### **Content** 
 
@@ -32,7 +32,7 @@ Two loal RAG Apps are composed as below.<br>
 (1)Ollama + llama3 + nomic-embed-text + TimescaleDB<br>
 (2)Ollama + llama3 + nomic-embed-text + Qdrant<br>
 
-Then, there are primary three parts for the local RAG App.<br>
+Then, there are three parts for the local RAG App.<br>
 (1)Read text files from the folder.<br>
 (2)Process data with Model and then save into databases.<br>
 (3)Input query string and then return the answer.<br>
