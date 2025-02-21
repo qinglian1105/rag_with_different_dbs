@@ -1,0 +1,45 @@
+volumes:  
+  timescaledb_data:
+  qdrant_storage:
+  ollama_storage:  
+    
+networks:
+  ollama_rags:      
+
+services:
+  ollama:     
+    image: ollama/ollama:latest
+    container_name: rags-ollama
+    environment:      
+      TZ: Asia/Taipei
+    networks: ['ollama_rags']    
+    ports:
+      - 11434:11434
+    volumes:
+    - ollama_storage:/root/.ollama 
+
+  timescaledb:
+    image: timescale/timescaledb-ha:pg16
+    container_name: rags-timescaledb
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - TZ=Asia/Taipei
+    networks: ['ollama_rags']   
+    ports:
+      - "5436:5432"
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data     
+       
+  qdrant:
+    image: qdrant/qdrant:v1.13.2
+    container_name: rags-qdrant  
+    environment:      
+      TZ: Asia/Taipei  
+    networks: ['ollama_rags']   
+    ports:
+      - 6333:6333
+    volumes:
+      - qdrant_storage:/qdrant/storage         
+
